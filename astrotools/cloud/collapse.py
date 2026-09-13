@@ -96,7 +96,8 @@ def free_fall_time(density):
     Fiducial core: t_ff = 9.73e4 yr. Note what the result does NOT depend on --
     the test checks that too.
     """
-    raise NotImplementedError("PS1, question 2")
+
+    return np.sqrt(3 * np.pi / (32 * c.G * density))
 
 
 def specific_angular_momentum(omega, radius):
@@ -114,7 +115,7 @@ def specific_angular_momentum(omega, radius):
     float or ndarray
         Specific angular momentum [m^2 s^-1].
     """
-    raise NotImplementedError("PS1, question 3")
+    return omega * radius**2
 
 
 def centrifugal_radius(omega, radius, mass, theta=np.pi / 2):
@@ -146,4 +147,4 @@ def centrifugal_radius(omega, radius, mass, theta=np.pi / 2):
     The sin^4(theta) dependence is what makes this a disk rather than a shell.
     Use GM_SUN rather than G * M_SUN when the mass is exactly one solar mass.
     """
-    raise NotImplementedError("PS1, question 3")
+    return (specific_angular_momentum(omega, radius)**2 * np.sin(theta)**4) / (c.G * mass)
