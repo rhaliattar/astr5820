@@ -36,6 +36,7 @@ L_START = 12.0     # pebbles start this many Hill radii upstream
 
 def hill_drag_derivs(t, y, st, dv):
     """Time derivative of the state of a pebble near a planet, with gas drag.
+scp ./Desktop/spintering_model/cpp/src/main_run_all_models.cpp ./Desktop/spintering_model/cpp/src/main_run_all_models.cpp ./Desktop/spintering_model/cpp/src/hdf5_io.cpp ./Desktop/spintering_model/cpp/include/hdf5_io.hpp "rhat4278@atlas.pdmz.lasp.colorado.edu:~/europa_plumes/europa_plumes_cpp/spintering_model/cpp/src"
 
     Parameters
     ----------
@@ -59,7 +60,12 @@ def hill_drag_derivs(t, y, st, dv):
     initial_state keeps its radial velocity, the drift velocity
     -2 st dv / (1 + st^2), while its azimuthal velocity follows the shear.
     """
-    raise NotImplementedError("PS4, section 1")
+    x, y, vx, vy = y
+    r = (x**2 + y**2)**0.5
+    uy = -1.5 * x - dv
+    ax = 3*x - 3*x/r**3 - vx/st + 2*vy
+    ay = -3*y/r**3 - (vy - uy)/st - 2*vx
+    return np.array([vx, vy, ax, ay])
 
 
 def initial_state(x0, st, dv):
